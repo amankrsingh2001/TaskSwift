@@ -19,6 +19,8 @@ const todoValidation = zod.object({
 
 })
 
+
+
 module.exports= {
     registerNewUser,
     loginValidator,

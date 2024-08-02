@@ -10,6 +10,7 @@ const authMiddleWare = (req,res,next) =>{
         const jwtToken = word[1];
         const token_decode = jwt.verify(jwtToken,process.env.JWT_SECRET)
         req.body.userId = token_decode.id;
+        req.body.email = token_decode.email;
         next();
         
     } catch (error) {
