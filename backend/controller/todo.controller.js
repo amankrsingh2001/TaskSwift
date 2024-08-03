@@ -70,10 +70,39 @@ const updateTodo = async (req, res) => {
 
 }
 
+const deleteTodo = async(req,res) =>{
+    const id = req.authorization.id;
+    const todoId = req.params.id;
+    
+    try {
+        const {todoList} = await User.findOne({
+            _id:id,
+        })
+        
+        let flag = false;
+        todoList.forEach((_id)=>{
+            if(_id.equals(todoId)){
+                flag=true
+            }
+        })
 
+        if(!flag){
+            return res.status(401).status({msg:"Todo doesn't exist"})
+        }
+
+        const deleteTodo = await Todo.deleteOne({
+            _id:todoId
+        })
+        return res.status(200).json({msg:"Deleted Todo",todo:deleteTodo})
+
+    } catch (error) {
+        return res.status(400).json({msg:"Failed to deleted the Todo"})
+    }
+}
 
 
 module.exports = {
     addTodo,
-    updateTodo
+    updateTodo,
+    deleteTodo
 }
