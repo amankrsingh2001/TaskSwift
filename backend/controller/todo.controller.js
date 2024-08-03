@@ -33,35 +33,44 @@ const addTodo = async(req,res)=>{
     }
 }
 
+
 const updateTodo = async (req, res) => {
     const todoParser = req.body;
     const payloadParser = todoValidation.safeParse(todoParser)
     if(!payloadParser){
         return res.status(411).json({msg:"Validation error"})
     }
-    const id = req.body.userId;
-   try {
-     const user = await User.findOne({
-        _id:id
-     })
-     const todo = await User.findOne({
-        _id:{
-            "$in":user.todoList
+    const todoId = req.params.id;
+    const {id} = req.authorization;
+ try {
+        const {todoList} = await User.findOne({
+            _id:id
+        })
+        let flag = false;
+        todoList.forEach(( _id )=>{
+            if(_id.equals(todoId)){
+                flag = true;        
+            }
+        })
+        if(!flag){
+            return res.status(401).json({msg:"Todo doesnt exist"})
         }
-     })
-     if(user){
-         const updateTodo = await Todo.findByIdAndUpdate({_id:id},{
-             title:todoParser.title,
-             description:todoParser.description,
-             status:todoParser.status,
-             image:todoParser.image
-         })
-     }
-     return res.status(200).json({msg:"Updated Todo"})
-   } catch (error) {
-    console.log(error);
-   }
+
+        const todoUdpate = await Todo.findOneAndUpdate({_id:todoId},{
+            title:todoParser.title,
+            description:todoParser.description,
+            image:todoParser.image,
+            status:todoParser.status
+        })
+    return res.status(200).json({msg:"Todo updated"})
+ } catch (error) {
+    console.log(error)
+    return res.status(401).json({msg:"Failed to update todo"})
+ }
+
 }
+
+
 
 
 module.exports = {

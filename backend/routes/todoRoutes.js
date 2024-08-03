@@ -7,7 +7,7 @@ const { authMiddleWare } = require('../middlewares/auth.js');
 const TodoRouter = express.Router()
 
 TodoRouter.post('/new',authMiddleWare,addTodo);
-TodoRouter.put('/update',authMiddleWare,updateTodo)
+TodoRouter.put('/update/:id',authMiddleWare,updateTodo)
 
 module.exports = {
     TodoRouter,
