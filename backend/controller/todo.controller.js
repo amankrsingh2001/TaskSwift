@@ -93,7 +93,7 @@ const deleteTodo = async(req,res) =>{
         const deleteTodo = await Todo.deleteOne({
             _id:todoId
         })
-        return res.status(200).json({msg:"Deleted Todo",todo:deleteTodo})
+        return res.status(200).json({msg:"Deleted Todo"})
 
     } catch (error) {
         return res.status(400).json({msg:"Failed to deleted the Todo"})
