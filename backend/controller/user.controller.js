@@ -47,10 +47,6 @@
 
 
 
-
-
-
-
 const loginUser = async(req,res)=>{
   const loginParser = req.body;
   const payloadParser = loginValidator.safeParse(loginParser);
@@ -64,7 +60,7 @@ const loginUser = async(req,res)=>{
     if(!user){
       return res.status(400).json({msg:"User doesn't exist"})
     }
-    const isMatch = bcrypt.compare(loginParser.password,user.password);
+    const isMatch = await bcrypt.compare(loginParser.password,user.password);
     if(!isMatch){
       return res.status(401).json({msg:"Unauthorized"});
     }
