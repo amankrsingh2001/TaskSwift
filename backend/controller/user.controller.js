@@ -51,21 +51,21 @@ const loginUser = async(req,res)=>{
   const loginParser = req.body;
   const payloadParser = loginValidator.safeParse(loginParser);
   if(!payloadParser.success){
-    return res.status(400).json({msg:"Invaid input"})
+    return res.status(401).json({msg:"Invaid input"})
   }
   try {
     const user = await User.findOne({
       email:loginParser.email
     })
     if(!user){
-      return res.status(400).json({msg:"User doesn't exist"})
+      return res.status(404).json({msg:"User doesn't exist"})
     }
     const isMatch = await bcrypt.compare(loginParser.password,user.password);
     if(!isMatch){
       return res.status(401).json({msg:"Unauthorized"});
     }
     const token = createToken(user._id)
-    return res.status(200).json({token:token});
+    return res.status(200).json({msg:"Success",token:token});
   } catch (error) {
     console.log(error)
       res.status(400).json({msg:"Authentication failed"})
