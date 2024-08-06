@@ -10,10 +10,14 @@ const port = 4000;
 dotenv.config({
     path: './.env'
 })
+
+
 dbConnection();
 
 
 app.use(express.json());
+
+
 
 
 app.use('/',userRouter);
