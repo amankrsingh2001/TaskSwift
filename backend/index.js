@@ -9,6 +9,8 @@ const cors = require('cors')
 dotenv.config({
     path: './.env'
 })
+
+
 dbConnection();
 
 const port = process.env.PORT || 4000;
