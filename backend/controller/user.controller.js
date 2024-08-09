@@ -10,8 +10,7 @@ const registerUser = async(req,res)=>{
     return res.status(400).json({msg:"Wrong input"})
     }
     const userCheck = await User.findOne({
-        email:createPayload.email,
-        username:createPayload.username
+        email:createPayload.email
     })
     if(userCheck){
       return res.status(200).json({msg:"User already exist"})
@@ -25,6 +24,7 @@ const registerUser = async(req,res)=>{
         password:password,
         name:createPayload.name
     })
+
     const user = await newUser.save();
   
     const token = createToken(user._id)
@@ -48,12 +48,14 @@ const loginUser = async(req,res)=>{
     if(!user){
       return res.status(400).json({msg:"User doesn't exist"})
     }
-    const isMatch = bcrypt.compare(loginParser.password,user.password);
+
+    const isMatch = await bcrypt.compare(loginParser.password,user.password);
+    console.log(isMatch);
     if(!isMatch){
       return res.status(401).json({msg:"Unauthorized"});
     }
     const token = createToken(user._id)
-    return res.status(200).json({token:token});
+    return res.status(200).json({token:token, msg:"Success"});
   } catch (error) {
     console.log(error)
       res.status(400).json({msg:"Authentication failed"})
