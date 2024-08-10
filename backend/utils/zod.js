@@ -1,7 +1,6 @@
 const zod = require('zod')
 
 const registerNewUser = zod.object({
-    username:zod.string(),
     password:zod.string().min(5).max(16),
     email:zod.string().email(),
     name:zod.string()
