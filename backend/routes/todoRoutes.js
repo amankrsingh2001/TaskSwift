@@ -5,7 +5,7 @@ const { authMiddleWare } = require('../middlewares/auth.js');
 const TodoRouter = express.Router()
 
 
-TodoRouter.get('/todos',authMiddleWare,showTodo)
+TodoRouter.get('/',authMiddleWare,showTodo)
 TodoRouter.post('/new',authMiddleWare,addTodo);
 TodoRouter.put('/update/:id',authMiddleWare,updateTodo)
 TodoRouter.delete('/delete/:id',authMiddleWare,deleteTodo)

@@ -18,8 +18,8 @@ const port = process.env.PORT || 4000;
 app.use(express.json());
 app.use(cors())
 
-app.use('/',userRouter);
-app.use('/todo',TodoRouter);
+app.use('/user',userRouter);
+app.use('/todoList',TodoRouter);
 
 app.listen(port,()=>{
     console.log('App is listening on', port)
