@@ -12,7 +12,7 @@
         }
         const userCheck = await User.findOne({
             email:createPayload.email,
-            username:createPayload.username
+            // username:createPayload.username
         })
         if(userCheck){
           return res.status(200).json({msg:"User already exist"})

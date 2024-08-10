@@ -6,10 +6,6 @@ const {  userRouter } = require("./routes/userRoute.js");
 const { TodoRouter } = require("./routes/todoRoutes.js");
 const cors = require('cors')
 
-
-
-const port = 4000;
-
 dotenv.config({
     path: './.env'
 })
@@ -17,15 +13,14 @@ dotenv.config({
 
 dbConnection();
 
-app.use(cors());
+const port = process.env.PORT || 4000;
+
 app.use(express.json());
-
-
-
+app.use(cors())
 
 app.use('/',userRouter);
 app.use('/todo',TodoRouter);
 
 app.listen(port,()=>{
-    console.log('App is on')
+    console.log('App is listening on', port)
 })
