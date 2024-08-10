@@ -3,13 +3,30 @@ const { User } = require('../schema/userSchema.js');
 const { todoValidation } = require('../utils/zod.js');
 
 
+const showTodo = async(req,res)=>{
+   
+    const {id} = req.authorization;
+    if(!id){
+        res.status(404).json({msg:"User not found"})
+    }
+    try {
+        const user = await User.findById(id).populate('todoList');
+        console.log(user)
+        res.status(200).json({todoList:user.todoList});
+      } catch (error) {
+        console.error('Error fetching user todos:', error);
+        res.status(400).json({msg:"Failed to fetch todo"})
+      }
+}
+
+
 const addTodo = async(req,res)=>{
     const todoParser = req.body;
     const payloadParser = todoValidation.safeParse(todoParser);
     if(!payloadParser.success){
         return res.status(411).json({msg:"please provide clear input"})
     }
-        const id = req.body.userId
+       const {id} = req.authorization
        
     try {
         const newTodo = await Todo.create({
@@ -102,6 +119,7 @@ const deleteTodo = async(req,res) =>{
 
 
 module.exports = {
+    showTodo,
     addTodo,
     updateTodo,
     deleteTodo
