@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useReducer, useState } from "react";
-import { API_URL } from "../../utils/Constents.js";
-import axios from "axios";
+import { useReducer, useState } from "react"; //removed some waste imports
+
 
 // icons
 import { HiOutlineMail } from "react-icons/hi";
@@ -43,7 +42,7 @@ const Signup = () => {
         Create an account
       </h2>
       <p className="text-gray-400 text-sm py-3 font-poppins">
-        Describe yourself as clearly so that there are no mistakes.
+        Describe yourself as clearly so that there are no mistakes.  {/* ?? */}
       </p>
 
       <form action="#" method="post" className="w-full my-2">

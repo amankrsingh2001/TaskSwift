@@ -35,11 +35,9 @@
         })
         
         const user = await newUser.save();
-        console.log(newUser,"New user");
         const token = createToken(user._id)
         return res.status(200).json({msg:"User created",token:token})
       } catch (error) {
-        console.log(error)
         return res.status(400).json({msg:"Failed to create User"})
       }
     }
@@ -67,7 +65,6 @@ const loginUser = async(req,res)=>{
     const token = createToken(user._id)
     return res.status(200).json({msg:"Success",token:token});
   } catch (error) {
-    console.log(error)
       res.status(400).json({msg:"Authentication failed"})
   }
 }

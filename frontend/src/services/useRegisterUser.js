@@ -35,7 +35,7 @@ const useRegisterUser = async (userCredentials) => {
   const username = await generateUniqueUserName(email);
 
   try {
-    const result = await axios.post(`${API_URL}/register`, {
+    const result = await axios.post(`${API_URL}/user/register`, {
       ...newUserCredential,
       username,
     });
