@@ -13,16 +13,15 @@ const useVerifyCredential = async (userCredentials) => {
   }
 
   try {
-    const response = await axios.post(`${API_URL}/login`, userCredentials);
-    console.log(response.data);
+    const response = await axios.post(`${API_URL}/user/login`, userCredentials);
     if(response.status === 200){
-      return { type:"success", msg: response.data.msg, response };
+      return { msg: response.data.msg, response, };
     }
 
   } catch (error) {
     console.log("Error:", error);
-    const errorInfo = error.response;
-    return { type:"error", msg: errorInfo?.data?.msg, response: errorInfo };
+    const errorInfo = error?.response?.data?.msg || error.message;
+    return { type:"error", msg: errorInfo, response: errorInfo };
   }
 };
 

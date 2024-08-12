@@ -28,11 +28,14 @@ const Signup = () => {
 
   const registerUser = async (e) => {
     e.preventDefault();
+
     e.target.disabled = true;
     setloader();
+    
     const response = await useRegisterUser( userCredentials );    
-    toast[response.type](response.msg);
-    if(response.type === "success") navigate("/dashboard");
+    response?.type && toast[response.type](response.msg);
+    
+    if(response.msg === "User created") navigate("/dashboard");
     setloader();
     e.target.disabled = false;
   };

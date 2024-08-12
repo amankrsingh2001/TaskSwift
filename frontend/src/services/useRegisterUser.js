@@ -35,20 +35,20 @@ const useRegisterUser = async (userCredentials) => {
   const username = await generateUniqueUserName(email);
 
   try {
-    const result = await axios.post(`${API_URL}/register`, {
+    const result = await axios.post(`${API_URL}/user/register`, {
       ...newUserCredential,
       username,
     });
     console.log(result);
 
     if (result.status === 200) {
-      return { msg: result?.data?.msg, response: result, type: "success" };
+      return { msg: result?.data?.msg, response: result };
     }
     
   } catch (error) {
-    const errorInfo = error.response;
+    const errorInfo = error.response?.data?.msg || error.message;
     console.log("Error:", error);
-    return { msg: errorInfo?.data?.msg, response: errorInfo, type: "error" };
+    return { msg: errorInfo, response: errorInfo, type: "error" };
   }
 };
 

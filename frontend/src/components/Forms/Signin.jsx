@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useReducer, useState } from "react";
+import { useContext, useReducer, useState } from "react";
 
 import useVerifyCredential from "../../services/useVerifyCredentials.js";
 // icons
@@ -11,6 +11,7 @@ import { FaRegEye } from "react-icons/fa6";
 // components
 import Spinner from "../utils/Spinner.jsx";
 import { toast } from "react-toastify";
+import Context from "../../context/userContext.jsx";
 
 const Signin = () => {
   const [userCredentials, setuserCredentials] = useState({
@@ -20,6 +21,7 @@ const Signin = () => {
   const [hidePass, setHidePass] = useReducer((old) => !old, true);
   const [loader, setloader] = useReducer((old) => !old, false);
   const navigate = useNavigate();
+  const { setIsLogedIn } = useContext(Context)
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -27,8 +29,12 @@ const Signin = () => {
     event.target.disabled= true;
     setloader();
     const response = await useVerifyCredential( userCredentials );
-    toast[response.type](response.msg);
-    if (response.type === "success") navigate("/dashboard");
+    
+    response?.type && toast[response.type](response.msg);
+    if (response.msg === "Success"){
+      navigate("/dashboard")
+      setIsLogedIn()
+    };
     setloader();
     event.target.disabled = false;
   };

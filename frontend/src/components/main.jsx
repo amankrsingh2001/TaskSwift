@@ -7,12 +7,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "../styles/index.css";
 import NotFound from "../Pages/NotFound.jsx";
 import Signin from "./Forms/Signin.jsx";
-import Signup from "./Forms/SignUp.jsx";
 import Dashboard from "../Pages/Dashboard.jsx";
 import Home from "../Pages/Home.jsx";
 import ForgotPassword from "./Forms/ForgotPassword.jsx";
 import Signin_SignUp from "../Pages/Signin_Signup.jsx";
-
+import ProtectedRoutes from "./utils/ProtectedRoutes.jsx";
+import { UserContext } from "../context/userContext.jsx"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,17 +40,26 @@ const router = createBrowserRouter([
         element: <Signin />,
       },
       {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
+        element:<ProtectedRoutes/>,
+        children:[
+          
+          {
+            path: "dashboard",
+            element: <Dashboard />,
+          },
+        ]
+      }
+     
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-      <App />
-    </RouterProvider>
+      <UserContext>
+      <RouterProvider router={router}>
+          <App />
+      </RouterProvider>
+      </UserContext>
   </React.StrictMode>
 );
