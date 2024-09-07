@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 
 import useVerifyCredential from "../../services/useVerifyCredentials.js";
 // icons
@@ -11,7 +11,8 @@ import { FaRegEye } from "react-icons/fa6";
 // components
 import Spinner from "../utils/Spinner.jsx";
 import { toast } from "react-toastify";
-import Context from "../../context/userContext.jsx";
+import { useDispatch } from "react-redux";
+import { addCurrentUser } from "../../store/Slices/UserSlice.js"
 
 const Signin = () => {
   const [userCredentials, setuserCredentials] = useState({
@@ -21,7 +22,7 @@ const Signin = () => {
   const [hidePass, setHidePass] = useReducer((old) => !old, true);
   const [loader, setloader] = useReducer((old) => !old, false);
   const navigate = useNavigate();
-  const { setIsLogedIn } = useContext(Context)
+  const dispatch = useDispatch();
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -32,8 +33,11 @@ const Signin = () => {
     
     response?.type && toast[response.type](response.msg);
     if (response.msg === "Success"){
-      navigate("/dashboard")
-      setIsLogedIn()
+      console.log(response);
+      const currentUser = response.response.data?.user
+      dispatch( addCurrentUser( currentUser ) )
+      // navigate to username
+      navigate(`/${currentUser.username}`)
     };
     setloader();
     event.target.disabled = false;
@@ -41,7 +45,7 @@ const Signin = () => {
 
   return (
     <div className="max-w-[360px] py-6">
-      <h2 className="font-poppins text-black font-medium text-3xl ">
+      <h2 className="font-poppins text-black font-medium text-3xl">
         Welcome back!
       </h2>
       <p className="text-gray-400 text-sm py-3 font-poppins">

@@ -3,12 +3,7 @@ import { API_URL } from "../utils/Constents";
 import { generateUniqueUserName } from "./useUsernameGenertor.js";
 
 const useRegisterUser = async (userCredentials) => {
-  const { fName, lName, email, password } = userCredentials;
-  const newUserCredential = {
-    name: fName + " " + lName,
-    email,
-    password,
-  };
+  const { fullName, email, password } = userCredentials;
 
   let response = {
     msg: "",
@@ -16,15 +11,15 @@ const useRegisterUser = async (userCredentials) => {
     type: "warn",
   };
   if (
-    newUserCredential.name.trim() == "" ||
-    newUserCredential.email == "" ||
-    newUserCredential.password == ""
+    fullName.trim() == "" ||
+    email.trim() == "" ||
+    password.trim() == ""
   ) {
     return { ...response, msg: "Please fill all info." };
   }
   if (
-    !newUserCredential.email.includes("@") ||
-    !newUserCredential.email.includes(".")
+    !email.includes("@") ||
+    !email.includes(".")
   ) {
     return { ...response, msg: "Invalid Email.", type: "error" };
   }
@@ -36,8 +31,10 @@ const useRegisterUser = async (userCredentials) => {
 
   try {
     const result = await axios.post(`${API_URL}/user/register`, {
-      ...newUserCredential,
-      username,
+      name:fullName, 
+      email,
+      password,
+      username
     });
     console.log(result);
 

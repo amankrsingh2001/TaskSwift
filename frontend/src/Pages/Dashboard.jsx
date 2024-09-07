@@ -1,27 +1,31 @@
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useReducer, useState } from "react";
+import { Outlet, useLocation} from "react-router-dom";
+import {motion} from 'framer-motion';
+import "react-toastify/dist/ReactToastify.css";
 
-import 'react-toastify/dist/ReactToastify.css';
-import Context from "../context/userContext";
-import LeftSidebar from "../components/Dashboard/LeftSidebar";
-import BoardOverview from "../components/Dashboard/BoardOverview";
-import RightSidebar from "../components/Dashboard/RightSidebar";
+import DashboardHeader from "../components/Header/DashboardHeader";
+import NewTask from "../components/Forms/NewTask";
+import NavigationMenuList from "../components/Dashboard/NavigationMenu";
+
 const Dashboard = () => {
-    const navigate = useNavigate();
-    const { isLogedIn,setIsLogedIn } = useContext( Context )
-    const signOutUser =  () => {
-        navigate('/signin');
-        setIsLogedIn();
-    }
+  const [showLeftSideBar, setShowLeftSidebar] = useReducer((old) => !old, false);
+  const [newTaskFrom, setnewTaskFrom] = useReducer((old) => !old, false);
+  const [sidebarWidth, setSidebarWidth] = useState(true)
 
-    console.log(isLogedIn)
-    return (
-        <section className="grid grid-cols-[minmax(80px,_260px)_minmax(400px,_1fr)_minmax(180px,_360px)] w-full h-screen">
-            <LeftSidebar />
-            <BoardOverview />
-            <RightSidebar />
-        </section>
-    )
-}
+  return (
+    <section  className={`h-screen w-full bg-slate-50 text-black grid grid-cols-1 relative overflow-hidden ${sidebarWidth ? "md:grid-cols-[minmax(200px,_240px)_1fr] lg:grid-cols-[minmax(200px,_300px)_1fr]" : "md:grid-cols-[70px_1fr]"}`}>
+        {/* <LeftSidebar sidebarToggle={showLeftSideBar} setSidebarWidth={setSidebarWidth} sidebarWidth={sidebarWidth} /> */}
+        <NavigationMenuList sidebarToggle={showLeftSideBar} setSidebarWidth={setSidebarWidth} sidebarWidth={sidebarWidth} />
+        
+         {/*rightSidebarData ? "showTaskDetails": "hideTaskDetails" }  */}
+      <main className={`bg-inherit overflow-hidden`}>
+        <Outlet context={[ setnewTaskFrom ]}/>
+      </main> 
+      {newTaskFrom && (
+        <NewTask newTaskFrom setnewTaskFrom={() => setnewTaskFrom()} />
+      )}
+    </section>
+  );
+};
 
 export default Dashboard;

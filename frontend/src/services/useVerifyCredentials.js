@@ -21,7 +21,7 @@ const useVerifyCredential = async (userCredentials) => {
   } catch (error) {
     console.log("Error:", error);
     const errorInfo = error?.response?.data?.msg || error.message;
-    return { type:"error", msg: errorInfo, response: errorInfo };
+    return { type:"error", msg: errorInfo, response: error?.response };
   }
 };
 

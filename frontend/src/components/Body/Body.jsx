@@ -1,11 +1,8 @@
 const Body = () => {
     return (
-          
-        <h1 className="text-3xl p-4 text-center border-2 flex-1 grow">
-            Main Body
-            <p className="text-center"> Under Development... </p>
-        </h1>
-
+        <main className="p-4 border-2 flex-1 flex items-center justify-center">
+            <h1 className="text-3xl text-center"> Body - Under Development...</h1>
+        </main>
     )
 }
 
