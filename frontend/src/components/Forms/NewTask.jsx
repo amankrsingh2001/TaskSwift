@@ -5,7 +5,7 @@ import { IoCloseCircleOutline, IoPlayOutline } from "react-icons/io5";
 import { TiStarOutline } from "react-icons/ti";
 import { FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import {updateBoardAndProject} from "../../store/Slices/BoardSlice";
+import {updateBoardAndProject} from "../../Slices/BoardSlice";
 import { nanoid } from "@reduxjs/toolkit";
 
 const NewTask = ({ newTaskFrom, setnewTaskFrom }) => {

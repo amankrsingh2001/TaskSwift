@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Logo from "../utils/Logo"
+import Logo from "../common/Logo"
 const Header = () => {
   return (
     <header className="p-2 text-center border-2 flex justify-between gap-4 ">
@@ -7,14 +7,14 @@ const Header = () => {
       <nav className="sm:block hidden">Navigation</nav>
       <div className="flex">
         <Link
-          to={"/signin"}
+          to={"/account/signin"}
           className="py-1 px-4 active:scale-[96%] rounded mr-2 border-2 text-sm"
         >
           Sign In
         </Link>
         
         <Link
-          to={"/signup"}
+          to={"/account/signup"}
           className="hidden sm:block py-1 px-4 active:scale-[96%] rounded mr-2 border-2 text-sm"
         >
           Sign Up

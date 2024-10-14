@@ -1,5 +1,5 @@
-import Tag from "../utils/Tag";
-import UserProfile from "../utils/UserProfile";
+import Tag from "../common/Tag";
+import UserProfile from "../common/UserProfile";
 import useGetPriorityColor, {
   useGetTagColor,
 } from "../../services/useColorGenerator";
@@ -22,7 +22,7 @@ import {
   FcLowPriority,
   FcMediumPriority,
 } from "react-icons/fc";
-import { updateBoardAndProject } from "../../store/Slices/BoardSlice";
+import { updateBoardAndProject } from "../../Slices/BoardSlice";
 
 const RightSidebar = ({ sidebarData }) => {
   const { rightSidebarData, setrightSidebarData } = sidebarData;

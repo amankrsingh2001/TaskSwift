@@ -2,10 +2,10 @@ import { useEffect, useReducer, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loadCurrentBoard } from "../../store/Slices/BoardSlice";
-import { addNewProject } from "../../store/Slices/ProjectListSlice";
-import Logo from "../utils/Logo";
-import taskListsMocData from "../../data/taskListsMocData"
+import { loadCurrentBoard } from "../../Slices/BoardSlice";
+import { addNewProject } from "../../Slices/ProjectListSlice";
+import Logo from "../common/Logo";
+import taskListsMocData from "../../mocks/taskListsMocData"
 
 // icons
 import {
@@ -22,7 +22,7 @@ import { IoArrowDownCircleOutline } from "react-icons/io5";
 import { TiPlus } from "react-icons/ti";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { LuArrowLeftToLine } from "react-icons/lu";
-import { navigationDataList } from "../../data/navigationMenuDataList";
+import { navigationDataList } from "../../mocks/navigationMenuDataList";
 
 const NavigationMenuList = ({ sidebarToggle, sidebarWidth, setSidebarWidth }) => {
   const [favProject, setFavProject] = useReducer((old) => !old, false);
@@ -273,7 +273,7 @@ const NavigationMenuList = ({ sidebarToggle, sidebarWidth, setSidebarWidth }) =>
                                   key={project.id}
                                 >
                                   <Link
-                                    to={`./${project.name
+                                    to={`./project/${project.name
                                       .toLowerCase()
                                       .split(" ")
                                       .join("-")}`}
@@ -344,7 +344,7 @@ const NavigationMenuList = ({ sidebarToggle, sidebarWidth, setSidebarWidth }) =>
                           }}
                         >
                           <Link
-                            to={`./${project.name
+                            to={`./project/${project.name
                               .toLowerCase()
                               .split(" ")
                               .join("-")}`}
@@ -389,7 +389,18 @@ const NavigationMenuList = ({ sidebarToggle, sidebarWidth, setSidebarWidth }) =>
                 const IconComponent = iconComponents[menuLink?.icon];
                 return (
                   <li key={menuLink.id}
-                    className={`flex items-center px-3 py-2 text-md rounded-e-3xl font-medium cursor-pointer hover:pl-6 hover:bg-slate-200 hover:text-slate-800 hover:font-semibold transition-all duration-200 text-md text-gray-800 ${
+                    
+                    onClick={() =>
+                      handleActiveLinkState(
+                        UserProjectList.length +
+                          UserProjectList.filter((list) => list.isFavorite)
+                            .length +
+                          index +
+                          5
+                      )
+                    }
+                  >
+                    <Link to={menuLink.href.includes('profile')  ? `${menuLink.href}/${currentUser.username}` : menuLink.href} className={`flex items-center px-3 py-2 text-md rounded-e-3xl font-medium cursor-pointer hover:pl-6 hover:bg-slate-200 hover:text-slate-800 hover:font-semibold transition-all duration-200 text-md text-gray-800 ${
                       componentAllState.selectedNavMenuItem ==
                       UserProjectList.length +
                         UserProjectList.filter((list) => list.isFavorite)
@@ -416,17 +427,8 @@ const NavigationMenuList = ({ sidebarToggle, sidebarWidth, setSidebarWidth }) =>
                           index +
                           5 &&
                       "pl-2"
-                    } ${!sidebarWidth ? "hover:pl-6 pl-5 pr-0" : "hover:pl-6"}`}
-                    onClick={() =>
-                      handleActiveLinkState(
-                        UserProjectList.length +
-                          UserProjectList.filter((list) => list.isFavorite)
-                            .length +
-                          index +
-                          5
-                      )
-                    }
-                  >
+                    } ${!sidebarWidth ? "hover:pl-6 pl-5 pr-0" : "hover:pl-6"}`}>
+                 
                     {IconComponent && (
                       <IconComponent
                         className={`mr-3 text-xl ${
@@ -449,6 +451,7 @@ const NavigationMenuList = ({ sidebarToggle, sidebarWidth, setSidebarWidth }) =>
                       />
                     )}
                     {sidebarWidth && ( index == navMenu.items.length - 1 ? currentUser.username : menuLink.text)}
+                    </Link>  
                   </li>
                 );
               })}

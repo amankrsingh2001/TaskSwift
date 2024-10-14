@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import { MdAccessTime, MdRadioButtonChecked } from "react-icons/md";
 import { IoTimeOutline } from "react-icons/io5";
 
-import Tag from "../utils/Tag";
-import UserProfile from "../utils/UserProfile";
+import Tag from "../../common/Tag";
+import UserProfile from "../../common/UserProfile";
 import useGetPriorityColor, {
   useGetTagColor,
-} from "../../services/useColorGenerator";
-import { DropIndicator } from "./DropIndicator";
+} from "../../../services/useColorGenerator";
+import { DropIndicator } from "./CardDropIndicator";
 
 const Task = ({ data }) => {
   const date = new Date();
@@ -21,7 +21,7 @@ const Task = ({ data }) => {
 
   const handleCompletionStatus = () => {
     const allSubTaks = 2; // read the value of subtasks
-    const compltedSubTasks = 1;
+    const compltedSubTasks = 2;
     const finalResult = (compltedSubTasks / allSubTaks) * 100;
     return finalResult || 0.5;
   };
@@ -122,7 +122,7 @@ const Task = ({ data }) => {
               }
                  ${taskCompletion >= 70 && "bg-green-600"} ${
                 taskCompletion >= 45 && taskCompletion < 70 && "bg-yellow-500"
-              } ${taskCompletion < 45 && "bg-red-600"} `}
+              } ${taskCompletion < 45 && "bg-pink-600"} `}
               style={{ width: `${taskCompletion}%` }}
             ></span>
           </div>

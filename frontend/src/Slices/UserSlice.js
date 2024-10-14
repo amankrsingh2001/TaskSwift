@@ -11,22 +11,21 @@ const testUser123 = {
 
 const initialState = {
   user: { ...testUser123 }, // add test user for testing...
+  // user: null,
 };
 
 export const UserSlice = createSlice({
   name: "CurrentUserInfo",
   initialState,
-  reducers: {
+  reducers: { 
     addCurrentUser: (state, action) => {
       state.user = action.payload;
     },
     removeCurrentUser: (state, action) => {
-      // empty user
-      state.user = action.payload ;
+      state.user = null;
     },
     updateUserProfile : (state, action) => {
-      // updated user
-      state.user = action.payload ;
+      state.user = {...state.user, ...action.payload} ;
     },
   },
 });

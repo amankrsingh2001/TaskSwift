@@ -1,19 +1,22 @@
-import { useRouteError, Link } from 'react-router-dom';
+import { Link, useRouteError } from 'react-router-dom';
 
 const NotFound = () => {
     const error = useRouteError();
     console.error(error);
 
   return (
-    <section className="grid grid-cols-2">
+    <section className="flex p-5  items-center  justify-center h-dvh">
       {/** image container */}
       <div></div>
 
-      <div>
-        <h1>Oops! Something went wrong.</h1>
-        <p>Error: {error.message || "Unknown error"}</p>
-        <p>Status: {error.status || "Unknown status"}</p>
-        <Link to="/user">Go back to the homepage</Link>
+      <div className='border-2 p-2 rounded-md'>
+        <h1 className='text-2xl'>Oops! Something went wrong.</h1>
+        <p className='text-red-400'>Error: {error.message || "Unknown error"}</p>
+        <p className='text-yellow-400'>Status: {error.status || "Unknown status"}</p>
+        Go back to the 
+        <button className="text-md ml-1 underline underline-offset-2 text-green-400" onClick={() => {
+          window.history.back(); // go back 
+        }}> Previous page </button>
       </div>
     </section>
   );

@@ -144,6 +144,7 @@ export const boardActions = BoardSlice.actions;
 
 export const updateBoardAndProject = (action) => (dispatch, getState) => {
     dispatch(boardActions[action.type](action.payload));
+    // get the current updated state and  >>> also update in the projectList array.
     const updatedBoard = getState().userBoard.currentBoard;
     dispatch(updateProject(updatedBoard));
 };

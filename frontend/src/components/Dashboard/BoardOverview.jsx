@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Task from "./Card.jsx";
+import Task from "./BoardView/Card.jsx";
 import NewTask from "../Forms/NewTask.jsx";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import RightSidebar from "./RightSidebar.jsx";
@@ -12,15 +12,15 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
 import { FaPlusCircle } from "react-icons/fa";
 
-import { updateBoardAndProject } from "../../store/Slices/BoardSlice.js";
+import { updateBoardAndProject } from "../../Slices/BoardSlice.js";
 import {
   deleteProject,
   updateProject,
-} from "../../store/Slices/ProjectListSlice.js";
+} from "../../Slices/ProjectListSlice.js";
 
 import { RiDropdownList } from "react-icons/ri";
 import { IoPlayOutline } from "react-icons/io5";
-import Column from "./Column.jsx";
+import Column from "./BoardView/Column.jsx";
 
 const BoardOverview = () => {
   const [taskLists, setTaskLists] = useState([]);

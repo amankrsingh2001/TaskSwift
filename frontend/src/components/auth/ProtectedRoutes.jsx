@@ -1,7 +1,9 @@
 import {Outlet, Navigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { addCurrentUser } from '../../store/Slices/UserSlice';
+import { addCurrentUser } from '../../Slices/UserSlice';
+import Home from '../../Pages/Home';
+import DashboardLayout from '../../Pages/auth/DashboardLayout';
 
 const ProtectedRoutes = () => {
     const user = useSelector(store => store.userInfo?.user);
@@ -9,12 +11,10 @@ const ProtectedRoutes = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // Get request for current user...
-        // update store
-        // dispatch(addCurrentUser(currentUser));
+        // validation check...
     }, [currentUser])
     
-    return ( currentUser ) ? <Outlet/> : <Navigate to='/signin'/>
+    return ( currentUser ) ? <DashboardLayout/> : <Home/>
 
 }
 

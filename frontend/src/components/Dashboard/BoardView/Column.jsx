@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import Task from "./Card";
-import { updateBoardAndProject } from "../../store/Slices/BoardSlice";
+import { updateBoardAndProject } from "../../../Slices/BoardSlice";
 
 // icons
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { DropIndicator } from "./DropIndicator";
+import { DropIndicator } from "./CardDropIndicator";
 import { json } from "react-router-dom";
 
 const Column = ({ data }) => {
