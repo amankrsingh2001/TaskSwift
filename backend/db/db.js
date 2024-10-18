@@ -1,15 +1,13 @@
 const mongoose = require('mongoose')
 
-
-
-exports.dbConnection = () =>{
-    mongoose.connect('mongodb+srv://amandev:amankrsingh@cluster0.yff37w4.mongodb.net/gaolGuru')
+async function dbConnection (){
+    await mongoose.connect(process.env.DB_URL)
     .then(()=>{
-        console.log("DB Connected")
+        console.log('connection established')
     })
-    .catch((error)=>{
-        console.error(error);
-        process.exit(1);
-    })
+}
+
+module.exports ={
+    dbConnection
 }
 

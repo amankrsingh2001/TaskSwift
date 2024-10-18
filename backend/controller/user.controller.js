@@ -1,85 +1,78 @@
-const { Profile } = require("../models/profile")
-const { User } = require("../models/user")
-const { signupSchema } = require("../utils/zod")
-const bcrypt = require('bcrypt')
+      const { User } = require('../schema/userSchema.js');
+      const { registerNewUser,loginValidator } = require('../utils/zod.js');
+      const bcrypt = require('bcrypt')
+      const {createToken} = require("../middlewares/createToken.js")
+      const {uploadOnCloudinary} = require('../utils/cloudinary.js')
 
+    const registerUser = async(req,res)=>{
+        const createPayload = req.body;
+        const parsePayload = registerNewUser.safeParse(createPayload);
+        if(!parsePayload.success){
+        return res.status(400).json({msg:"Wrong input"})
+        }
+        const userCheck = await User.findOne({
+            email:createPayload.email,
+            // username:createPayload.username
+        })
+        if(userCheck){
+          return res.status(200).json({msg:"User already exist"})
+        }
+      try {
+        let cloudinaryResponse= "";
 
+        if(req.file){
+             cloudinaryResponse = await uploadOnCloudinary(req.file.path);
+        }
 
-const signup = async(req, res) =>{
-  try {
-      const body = req.body
-
-      const {success} = signupSchema.safeParse(body)
-  
-      if(!success){
-          return res.status(401).json({
-              success:false,
-              message:"Please enter valid data"
-          })
-      }
-  
-      const user = await User.findOne({
-          username:body.username
-      })
-  
-      if(user){
-          return res.status(401).json({
-              success:false,
-              message:"User already exist"
-          })
-      }
-  
-      const userProfile = await Profile.create({
-        firstName:body.firstName,
-        lastName:body.lastName,
-        profileImage:`https://api.dicebear.com/5.x/initials/svg?seed=${body.firstName} ${body.lastName}`,
-        profession:'',
-        skills:[]
-      })
-  
-      const salt = await bcrypt.genSalt(10)
-      const hashedPassword = await bcrypt.hash(body.password, salt);
-  
-  
-      const newUser = await User.create({
-          username:body.username.toLowerCase(),
-          password:hashedPassword,
-          firstName:body.firstName,
-          lastName:body.lastName,
-          userProfile:userProfile._id,
-      })
-      const createUser = await User.findOne({
-        _id:newUser._id
-      }).populate('userProfile')
-
-         createUser.password = undefined;
-  
-      if(newUser._id){
-          return res.status(200).json({
-              success:true,
-              message:"Account created successfully",
-              data:createUser
-          })
-      }
-  } catch (error) {
-    return res.status(500).json({
-        success:false,
-        message:error.message
-    })
-  }
-
-}
-
-
-const login = async(req, res)=>{
-    const body = req.body;
-    try {
-
-    } catch (error) {
+        const salt = await bcrypt.genSalt(10)
+        const password = await bcrypt.hash(createPayload.password,salt)
+        const newUser = await User.create({
+            username:createPayload.username,
+            email:createPayload.email,
+            password:password,
+            name:createPayload.name,
+            image:cloudinaryResponse
+        })
         
+        const user = await newUser.save();
+        const token = createToken(user._id)
+        return res.status(200).json({msg:"User created",token:token})
+      } catch (error) {
+        return res.status(400).json({msg:"Failed to create User"})
+      }
     }
+
+
+
+
+const loginUser = async(req,res)=>{
+  const loginParser = req.body;
+  const payloadParser = loginValidator.safeParse(loginParser);
+  if(!payloadParser.success){
+    return res.status(401).json({msg:"Invaid input"})
+  }
+  try {
+    const user = await User.findOne({
+      email:loginParser.email
+    })
+    if(!user){
+      return res.status(404).json({msg:"User doesn't exist"})
+    }
+    const isMatch = await bcrypt.compare(loginParser.password,user.password);
+    if(!isMatch){
+      return res.status(401).json({msg:"Unauthorized"});
+    }
+    const token = createToken(user._id)
+    return res.status(200).json({msg:"Success",token:token});
+  } catch (error) {
+      res.status(400).json({msg:"Authentication failed"})
+  }
 }
+
+
+
 
 module.exports = {
-    signup
+  registerUser,
+  loginUser
 }
