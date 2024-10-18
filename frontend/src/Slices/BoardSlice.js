@@ -4,6 +4,7 @@ import { updateProject } from "./ProjectListSlice";
 // initial fields  --> **remove in production** 
 const BoardMocDataFormate = {
   id: 2,
+  username:'',
   name: "Website Design",
   createdAt: "April 14 2024",
   isFavorite: true,
