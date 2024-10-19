@@ -6,8 +6,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-         montserrat:["Montserrat", "sans-serif"],
-         poppins:["Poppins", "sans-serif"]
+         inter:["Inter", "sans-serif"],
+         sourceSans:[ "Source Sans 3", "sans-serif"],
+         playfair:["Playfair Display", "serif"]
       }, 
       animation: {
         'show-box':"showBox 300ms ease-in-out 1",

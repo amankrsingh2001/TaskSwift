@@ -4,7 +4,9 @@ import {motion} from 'framer-motion';
 import "react-toastify/dist/ReactToastify.css";
 import NewTask from "../../components/Forms/NewTask";
 import NavigationMenuList from "../../components/Dashboard/NavigationMenu";
+import Testing from "../../components/Dashboard/NavigationMenu";
 import UserProfile from "../../components/common/UserProfile";
+import DashboardHeader from "../../components/Header/DashboardHeader";
 
 const DashboardLayout = () => {
   const [showLeftSideBar, setShowLeftSidebar] = useReducer((old) => !old, false);
@@ -13,10 +15,12 @@ const DashboardLayout = () => {
 
   return (
     
-    <section  className={`h-screen w-full bg-slate-50 text-black grid grid-cols-1 relative overflow-hidden ${sidebarWidth ? "md:grid-cols-[minmax(200px,_240px)_1fr] lg:grid-cols-[minmax(200px,_300px)_1fr]" : "md:grid-cols-[70px_1fr]"}`}>
-        <NavigationMenuList sidebarToggle={showLeftSideBar} setSidebarWidth={setSidebarWidth} sidebarWidth={sidebarWidth} />
+    <section  className={`h-screen w-full bg-[#F9F7F7]  text-black grid grid-cols-1 relative overflow-hidden ${sidebarWidth ? "md:grid-cols-[minmax(200px,_240px)_1fr] lg:grid-cols-[minmax(200px,_300px)_1fr]" : "md:grid-cols-[70px_1fr]"}`}>
+        {/* <NavigationMenuList sidebarToggle={showLeftSideBar} setSidebarWidth={setSidebarWidth} sidebarWidth={sidebarWidth} /> */}
+        <Testing sidebarToggle={showLeftSideBar} setSidebarWidth={setSidebarWidth} sidebarWidth={sidebarWidth} />
         
       <main className={`bg-inherit overflow-hidden`}>
+        <DashboardHeader/>
         <Outlet context={[ setnewTaskFrom ]}/>
       </main> 
       {newTaskFrom && (

@@ -28,7 +28,7 @@ const SigninSignUpPage = () => {
           {/* render all form here */}
 
           <Outlet context={[pathname.split("/")[2]]} />
-          <p className="text-gray-600 text-center text-sm font-poppins mt-4">
+          <p className="text-gray-600 text-center text-sm font-inter mt-4">
             &copy; 2024 ALL RIGHT RESERVED
           </p>
         </div>

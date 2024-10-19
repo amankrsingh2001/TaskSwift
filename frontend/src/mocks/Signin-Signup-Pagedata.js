@@ -33,9 +33,15 @@ export const signupData = {
     formEls :[
         {   id:nanoid(),
             icon:'FaRegUser',
-            name:"fullName",
+            name:"firstName",
             type:"text",  
-            lable:"Full name"      
+            lable:"First name"      
+        },
+        {   id:nanoid(),
+            icon:'FaRegUser',
+            name:"lastName",
+            type:"text",  
+            lable:"Last name"      
         },
         {   id:nanoid(),
             icon:'HiOutlineMail',
@@ -57,7 +63,6 @@ export const signupData = {
         linkUrl :"/account/signin"
     },
     submitButtonText : 'Create account'
-
 }
 
 export const forgotPasswordData = {
