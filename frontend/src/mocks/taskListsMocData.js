@@ -9,7 +9,7 @@ const taskListsMocData = [
         title: "Title 1",
         description:
           " Descriptioin Lorem, ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ullam maiores quasi fuga nesciunt quos officiis sequi id est vitae sapiente facilis blanditiis, asperiores, impedit minus exercitationem tempore voluptas totam, sed facere aperiam. Accusamus soluta voluptates facere vel, deleniti aut!",
-        isFavorite: true,
+        isFavourite: true,
         priority: "high",
         assignees: [
           { profileUrl: "", username: "Mohit" },
@@ -33,7 +33,7 @@ const taskListsMocData = [
         title: "Development task",
         description:
           " Descriptioin Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim, nulla.  Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ullam maiores quasi fuga nesciunt quos officiis sequi id est vitae sapiente facilis blanditiis, asperiores, impedit minus exercitationem tempore voluptas totam, sed facere aperiam. Accusamus soluta voluptates facere vel, deleniti aut!",
-        isFavorite: true,
+        isFavourite: true,
         priority: "low",
         assignees: [{ profileUrl: "", username: "Jane smith" }],
         currentCategory: {id:"1", listName:"To do"},
@@ -55,7 +55,7 @@ const taskListsMocData = [
         title: "Title 1",
         description:
           " Descriptioin Lorem, ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ullam maiores quasi fuga nesciunt quos officiis sequi id est vitae sapiente facilis blanditiis, asperiores, impedit minus exercitationem tempore voluptas totam, sed facere aperiam. Accusamus soluta voluptates facere vel, deleniti aut!",
-        isFavorite: true,
+        isFavourite: true,
         priority: "high",
         assignees: [
           { profileUrl: "", username: "Mohit" },
@@ -79,7 +79,7 @@ const taskListsMocData = [
         title: "Development task",
         description:
           " Descriptioin Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim, nulla.  Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ullam maiores quasi fuga nesciunt quos officiis sequi id est vitae sapiente facilis blanditiis, asperiores, impedit minus exercitationem tempore voluptas totam, sed facere aperiam. Accusamus soluta voluptates facere vel, deleniti aut!",
-        isFavorite: true,
+        isFavourite: true,
         priority: "low",
         assignees: [{ profileUrl: "", username: "Jane smith" }],
         currentCategory: {id:"2", listName:"To do"},
@@ -101,7 +101,7 @@ const taskListsMocData = [
         title: "Title 1",
         description:
           " Descriptioin Lorem, ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ullam maiores quasi fuga nesciunt quos officiis sequi id est vitae sapiente facilis blanditiis, asperiores, impedit minus exercitationem tempore voluptas totam, sed facere aperiam. Accusamus soluta voluptates facere vel, deleniti aut!",
-        isFavorite: true,
+        isFavourite: true,
         priority: "high",
         assignees: [
           { profileUrl: "", username: "Mohit" },
@@ -125,7 +125,7 @@ const taskListsMocData = [
         title: "Development task",
         description:
           " Descriptioin Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim, nulla.  Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ullam maiores quasi fuga nesciunt quos officiis sequi id est vitae sapiente facilis blanditiis, asperiores, impedit minus exercitationem tempore voluptas totam, sed facere aperiam. Accusamus soluta voluptates facere vel, deleniti aut!",
-        isFavorite: true,
+        isFavourite: true,
         priority: "low",
         assignees: [{ profileUrl: "", username: "Jane smith" }],
         currentCategory: {id:"3", listName:"To do"},

@@ -15,7 +15,7 @@ const Task = ({ data }) => {
   const date = new Date();
   const { tags, title, description, priority, assignees, dueDate } = data.todo;
   const { showCurrentTask, setShowCurrentTask, showTaskDetails } = data;
-  const [color, bgColor] = useGetPriorityColor(priority);
+  const [bgColor, color] = useGetPriorityColor(priority);
   const [taskCompletion, setTaskCompletion] = useState(30);
   const [randomColorIndex, setRandomColorIndex] = useState([0, 0]);
 
@@ -71,7 +71,7 @@ const Task = ({ data }) => {
           boxShadow: "none",
         }}
         onDragStart={(e) => data.handleDragStart(e, { ...data.todo })}
-        className={`shrink-0 rounded-xl p-3 border-[1px] border-[#a9caff] outline-[2px] outline-transparent hover:outline-[#a9caff] outline-double hover:shadow-2xl w-[100%] relative cursor-grab active:cursor-grabbing hover:cursor-pointer ${
+        className={`shrink-0 rounded-2xl p-3 border-[1px] border-[#a9caff] outline-[2px] outline-transparent hover:outline-[#a9caff] outline-double hover:shadow-2xl w-[100%] relative cursor-grab active:cursor-grabbing hover:cursor-pointer ${
           showCurrentTask == data.todo.id && "outline-[#a9caff] shadow-2xl"
         }  bg-inherit`}
         onClick={() => {
@@ -120,9 +120,9 @@ const Task = ({ data }) => {
               className={`absolute rounded-xl top-0 left-0 h-full w-[50%] transition-all after:absolute after:h-3 after:w-3 after:rounded-full after:-right-0.5 after:bg-inherit after:-top-0.5  ${
                 taskCompletion < 100 ? "after:animate-ping" : "after:hidden"
               }
-                 ${taskCompletion >= 70 && "bg-green-600"} ${
+                 ${taskCompletion >= 70 && "bg-blue-500/50"} ${
                 taskCompletion >= 45 && taskCompletion < 70 && "bg-yellow-500"
-              } ${taskCompletion < 45 && "bg-pink-600"} `}
+              } ${taskCompletion < 45 && "bg-pink-500"} `}
               style={{ width: `${taskCompletion}%` }}
             ></span>
           </div>
@@ -159,7 +159,7 @@ const Task = ({ data }) => {
 
           <span className="flex gap-1 justify-between items-center text-gray-400 text-sm">
             <IoTimeOutline className="text-lg" />
-            <span className="text-md font-poppins">
+            <span className="text-md font-inter">
               {dueDate.slice(4, -5)} {dueDate.slice(0, 4)}
             </span>
           </span>

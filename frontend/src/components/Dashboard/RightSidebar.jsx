@@ -87,7 +87,7 @@ const RightSidebar = ({ sidebarData }) => {
     createdBy,
     attachements,
     currentCategory,
-    isFavorite,
+    isFavourite,
   } = currentTodo;
 
   const handleUpdateTodo = () => {
@@ -184,11 +184,11 @@ const RightSidebar = ({ sidebarData }) => {
           </header>
           <main className="px-4 py-3 mt-1">
             <div className="flex justify-between gap-2 items-center">
-              <span className="text-sm font-montserrat font-medium capitalize text-gray-400 ">
+              <span className="text-sm font-playfairerrat font-medium capitalize text-gray-400 ">
                 project &nbsp; / &nbsp; {name || "ProjectName"}
               </span>
               <span className="cursor-pointer">
-                {isFavorite ? (
+                {isFavourite ? (
                   <FaStar className="text-yellow-500 text-2xl mr-2" />
                 ) : (
                   <TiStarOutline className="text-2xl mr-2 text-gray-500" />
