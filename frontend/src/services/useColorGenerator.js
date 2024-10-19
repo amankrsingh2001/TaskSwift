@@ -12,9 +12,9 @@ const tagColors = [
 ];
 
 const priorityColors = [
-  { name: "high", value: ["#fca5a840", "#ef4444"] },
-  { name: "medium", value: ["#fcd34840", "#f59e0b"] },
-  { name: "low", value: ["#5eead840", "#14b8a6"] },
+  { name: "high", value: ["#fff", "#ef4444"] },
+  { name: "medium", value: ["#fff", "#f59e0b"] },
+  { name: "low", value: ["#fff", "#14b8a6"] },
 ];
 
 export const useGetTagColor = () => {

@@ -25,7 +25,7 @@ const NewTask = ({ newTaskFrom, setnewTaskFrom }) => {
   const [newTaskData, setNewTaskData] = useState({
     title: "",
     description: "",
-    isFavourite: false,
+    isFavorite: false,
     priority: [
       { name: "high", id: 1, isChecked: false },
       { name: "medium", id: 2, isChecked: true },
@@ -152,17 +152,17 @@ const NewTask = ({ newTaskFrom, setnewTaskFrom }) => {
               <IoCloseCircleOutline className="text-2xl text-gray-500 hover:text-gray-900 font-bold transition" />
             </button>
 
-            <p className=" text-gray-400 font-inter">Add new task</p>
+            <p className=" text-gray-400 font-poppins">Add new task</p>
 
             <button
               onClick={() =>
                 setNewTaskData({
                   ...newTaskData,
-                  isFavourite: !newTaskData.isFavourite,
+                  isFavorite: !newTaskData.isFavorite,
                 })
               }
             >
-              {newTaskData?.isFavourite ? (
+              {newTaskData?.isFavorite ? (
                 <FaStar className="text-yellow-500 text-2xl" />
               ) : (
                 <TiStarOutline className="text-2xl text-gray-400" />
@@ -449,7 +449,7 @@ const NewTask = ({ newTaskFrom, setnewTaskFrom }) => {
               Create At: {curDate.toDateString()}
             </span>
             <button
-              className="bg-slate-900 p-2 px-3 font-inter text-md text-white rounded opacity-100 hover:opacity-80 transition-opacity active:scale-[0.98]"
+              className="bg-slate-900 p-2 px-3 font-poppins text-md text-white rounded opacity-100 hover:opacity-80 transition-opacity active:scale-[0.98]"
               onClick={(e) => submitTaskData(e)}
             >
               Create Task

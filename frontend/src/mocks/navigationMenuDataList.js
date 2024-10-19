@@ -14,19 +14,19 @@ export const navigationDataList = [
       {
         id: nanoid(),
         text: "Notification",
-        href: "./notification",
+        href: "/notification",
         icon: "IoNotificationsOutline",
       },
       {
         id: nanoid(),
         text: "Projects",
-        href: "./projects",
+        href: "/:projectname",
         icon: "IoBriefcaseOutline",
       },
       {
         id: nanoid(),
         text: "Timeline",
-        href: "./timeline",
+        href: "/timeline",
         icon: "MdOutlineViewTimeline",
       },
     ],

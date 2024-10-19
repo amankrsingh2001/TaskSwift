@@ -6,7 +6,7 @@ const BoardMocDataFormate = {
   id: 2,
   name: "Website Design",
   createdAt: "April 14 2024",
-  isFavourite: true,
+  isFavorite: true,
   taskLists: [
     {
       id:345,

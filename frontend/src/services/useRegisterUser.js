@@ -3,7 +3,7 @@ import { API_URL } from "../utils/Constents";
 import { generateUniqueUserName } from "./useUsernameGenertor.js";
 
 const useRegisterUser = async (userCredentials) => {
-  const { firstName,lastName, email, password } = userCredentials;
+  const { fullName, email, password } = userCredentials;
 
   let response = {
     msg: "",
@@ -11,7 +11,7 @@ const useRegisterUser = async (userCredentials) => {
     type: "warn",
   };
   // validation :- null or empty value, email-validate, strong-password-checking
-  if (!firstName.trim() || !lastName.trim() || !email.trim() || !password.trim()) {
+  if (!fullName.trim() || !email.trim() || !password.trim()) {
     return { ...response, msg: "Please fill all info." };
   }
   if (!email.includes("@") || !email.includes(".")) {
@@ -22,12 +22,14 @@ const useRegisterUser = async (userCredentials) => {
     return { ...response, msg: "Use strong password." };
   }
 
+  const username = await generateUniqueUserName(email); // Generate unique Username
+
   try {
     const result = await axios.post(`${API_URL}/user/register`, {
-      firstName,
-      lastName,
+      name: fullName,
       email,
-      password
+      password,
+      username,
     });
     console.log(result);
 

@@ -8,7 +8,6 @@ import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { DropIndicator } from "./CardDropIndicator";
 import { json } from "react-router-dom";
-import { FaCaretRight } from "react-icons/fa";
 
 const Column = ({ data }) => {
   const [showTaskMenu, setshowTaskMenu] = useState(null);
@@ -98,7 +97,7 @@ const Column = ({ data }) => {
         })
       );
     } else {
-      // find
+      // find 
       let copyAllTaskLists = JSON.stringify(taskLists);
       copyAllTaskLists = JSON.parse(copyAllTaskLists);
 
@@ -203,28 +202,27 @@ const Column = ({ data }) => {
         onDrop={handleDragEnd}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
-        className="snap-start min-w-[240px] flex-1 bg-inherit"
+        className="snap-start min-w-[240px] flex-1 bg-inherit "
         key={columnData.id}
       >
-        <div className="h-fit border border-slate-300 flex flex-col px-3 py-4 rounded-3xl bg-inherit">
-          <h1 className="text-gray-700  relative flex justify-between px-2 mb-2 border-b border-gray-300 pb-3">
-            <span className="font-inter font-semibold text-lg capitalize flex items-center justify-center">
-              <FaCaretRight className="inline" />
-              <span>{columnData.listName}</span>
-              <span className="w-5 h-5 ml-2 border border-gray-400 rounded-full inline-flex items-center justify-center text-xs">
+        <div className="h-fit border border-slate-300 flex flex-col px-3 py-4 rounded-lg bg-inherit">
+          <h1 className="text-gray-700 font-medium text-xl relative flex justify-between mb-2 capitalize">
+            <span>
+              {columnData.listName}
+              <span className="w-6 h-6 ml-2 border border-gray-400 rounded-full inline-flex items-center justify-center text-sm">
                 {columnData?.todos?.length}
               </span>
             </span>
-            <div className="flex gap-1.5 items-center">
+            <div className="flex gap-3 items-center">
               <span
-                className="rounded-full p-1 cursor-pointer"
+                className="border border-gray-500 rounded-full p-2 cursor-pointer active:scale-95"
                 aria-hidden
                 onClick={handleAddNewTodo}
               >
                 <FaPlus className="text-sm" />
               </span>
               <BsThreeDotsVertical
-                className="rounded-[50%] p-1 text-[24px] cursor-pointer"
+                className="hover:shadow-md rounded-[50%] p-2 text-[32px] rotate-90 cursor-pointer active:scale-95"
                 onClick={(e) => {
                   e.stopPropagation();
                   showCurrentListMenu == columnData.id

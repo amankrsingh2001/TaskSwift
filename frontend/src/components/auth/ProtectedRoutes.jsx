@@ -14,7 +14,7 @@ const ProtectedRoutes = () => {
         // validation check...
     }, [currentUser])
     
-    return ( currentUser ) ? <DashboardLayout/> : <Navigate to={"/"}/>
+    return ( currentUser ) ? <DashboardLayout/> : <Home/>
 
 }
 
