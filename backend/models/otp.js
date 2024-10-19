@@ -3,11 +3,12 @@ const { mailSender } = require('../utils/nodemailer')
 
 const otpSchema = new mongoose.Schema({
     username:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+        type:String,
+        requied:true,
+        trim:true
     },
     otp:{
-        type:String,
+        type:Number,
         required:true
     },
     createdAt:{
@@ -29,7 +30,7 @@ async function sendVerificationEmail(username, otp){
 }
 
 otpSchema.pre("save", async function (next) {
-    await sendVerificationEmail(this.user, this.otp)
+    await sendVerificationEmail(this.username, this.otp, "opt")
     next()
 })
 

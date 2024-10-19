@@ -3,14 +3,16 @@ const nodemailer = require("nodemailer");
 const mailSender = async(email, title, body) =>{
     try {
             let transporter = nodemailer.createTransport({
-                host:'hostname',
+                host:process.env.MAIL_HOST,
                 auth:{
-                    user:"userEmail",
-                    pass:"userPass"
+                    user:process.env.MAIL_USER,
+                    pass:process.env.MAIL_PASS
                 }
             })
+
+
             let info = await transporter.sendMail({
-                from:"Task Swift ",
+                from:`"Task Swift ${process.env.email}`,
                 to:`${email}`,
                 subject:`${title}`,
                 html:`${body}`
