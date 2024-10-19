@@ -1,13 +1,15 @@
 const express = require('express')
-const {registerUser, loginUser} = require('../controller/user.controller.js');
-const {upload} = require('../middlewares/multer.middleware.js')
-
-
+const { signup, signin, otp } = require('../controller/user.controller')
 
 const userRouter = express.Router()
 
-userRouter.post('/register',upload.single("image"),registerUser);
-userRouter.post('/login',loginUser);
+
+userRouter.post('/otp', otp)
+userRouter.post('/signup', signup)
+userRouter.post('/signin', signin)
 
 
-module.exports = {userRouter} 
+
+
+module.exports = userRouter  
+
