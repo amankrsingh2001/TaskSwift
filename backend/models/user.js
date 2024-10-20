@@ -31,7 +31,11 @@ const userSchema = new mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId,
             ref:"Board"
         }
-]
+    ],
+    refreshToken:{
+        type:String,
+        expires:10*24*60*60*1000
+    }
 },{
     timestamps:true
 })

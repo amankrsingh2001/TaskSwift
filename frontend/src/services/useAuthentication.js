@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../utils/Constents";
 
-const useVerifyCredential = async (userCredentials) => {
+const useVerifyCredential = async (userCredentials, navigate , dispatch) => {
 
   if (
     userCredentials.email == "" ||
@@ -13,10 +13,12 @@ const useVerifyCredential = async (userCredentials) => {
   }
 
   try {
-    const response = await axios.post(`${API_URL}/user/login`, userCredentials);
-    if(response.status === 200){
+    const response = await axios.post(`${API_URL}/user/signin`, userCredentials);
+    console.log(response.data,"**********")
+    if(response.data.success){
       return { msg: response.data.msg, response, };
     }
+
 
   } catch (error) {
     console.log("Error:", error);

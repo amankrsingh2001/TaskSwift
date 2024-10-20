@@ -11,6 +11,8 @@ const testUser123 = {
 
 const initialState = {
   user: { ...testUser123 }, // add test user for testing...
+  token:localStorage.getItem("token") ? localStorage.getItem('token') : null,
+  loading:false
   // user: null,
 };
 
@@ -27,8 +29,11 @@ export const UserSlice = createSlice({
     updateUserProfile : (state, action) => {
       state.user = {...state.user, ...action.payload} ;
     },
+    setToken :(state, action) =>{
+      state.token = action.payload
+    }
   },
 });
 
 export default UserSlice.reducer;
-export const { addCurrentUser, updateUserProfile, removeCurrentUser } = UserSlice.actions;
+export const { addCurrentUser, updateUserProfile, removeCurrentUser,setToken } = UserSlice.actions;

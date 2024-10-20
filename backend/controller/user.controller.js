@@ -98,25 +98,46 @@ const signup = async(req, res) =>{
       const salt = await bcrypt.genSalt(10)
       const hashedPassword = await bcrypt.hash(body.password, salt);
   
-  
+      
       const newUser = await User.create({
           username:body.username.toLowerCase(),
           password:hashedPassword,
           firstName:body.firstName,
           lastName:body.lastName,
           userProfile:userProfile._id,
+          refreshToken:''
       })
-      const createUser = await User.findOne({
-        _id:newUser._id
-      }).populate('userProfile')
 
-         createUser.password = undefined;
+
+      const refreshToken = jwt.sign({
+        _id:newUser._id
+      },process.env.JWT_REFRESH_SECRET,{
+        expiresIn:'10d'
+      })
+
+      const createUser = await User.findOneAndUpdate({
+        _id:newUser._id
+      },{ refreshToken:refreshToken },{ new:true }).populate('userProfile')
+
+      const authToken = jwt.sign({
+        _id:newUser._id
+      },process.env.JWT_SECRET,{
+        expiresIn:'5h'
+      })
+
+
+    createUser.password = undefined;
+    createUser.refreshToken = undefined
+
+
   
       if(newUser._id){
-          return res.status(200).json({
+          return res.status(200).cookie("authToken", authToken, { httpOnly: true, secure: true })
+          .json({
               success:true,
               message:"Account created successfully",
-              data:createUser
+              data:createUser,
+              token:token
           })
       }
   } catch (error) {
@@ -180,8 +201,57 @@ const signin = async(req, res)=>{
     }
 }
 
+
+const updateToken = async(req, res)=>{
+    try {
+        const {id} = req.body
+
+        const user = await User.findOne({
+            _id:id
+        })
+        if(!user){
+            return res.status(404).json({
+                success:false,
+                message:'User not found'
+            })
+        }
+
+        const refresh_token_decode = jwt.verify(user.refreshToken, process.env.JWT_REFRESH_SECRET)
+        
+        const authToken = jwt.sign({
+            _id:refresh_token_decode._id
+        },process.env.JWT_SECRET)
+
+        res.clearCookie('authToken');
+
+        return res.status(200).cookie('authToken', authToken).json({
+            success:true,
+            message:"Token updated",
+            data:user,
+        })
+
+    } catch (error) {
+        if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
+            return res.status(401).json({
+                success: false,
+                message: "Refresh token is expired or invalid"
+            });
+        }
+        
+        // General error handling
+        return res.status(500).json({
+            success: false,
+            message: "An error occurred",
+            error: error.message 
+        });
+    
+    }
+}
+
+
 module.exports = {
     otp,
     signup,
     signin,
+    updateToken
 }
