@@ -5,15 +5,9 @@ const categorySchema = new mongoose.Schema({
         type:String,
         required:true,
         trim:true
-    },
-    assignedTodo:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'AssignedTodo'
-    }],
-    personalTodo:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'PersonalTodo'
-    }]
+    }
+},{
+    timestamps:true
 })
 
 const Category = new mongoose.model('Category', categorySchema)

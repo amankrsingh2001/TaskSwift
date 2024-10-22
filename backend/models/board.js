@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { boolean } = require('zod')
 
 const boardSchema = new mongoose.Schema({
     admin:{
@@ -17,15 +18,20 @@ const boardSchema = new mongoose.Schema({
         trim:true
     },
     category:[{
-        type:String,
-        required:true
+        type:mongoose.Schema.Types.objectId,
+        ref:"Category"
     }],
     assignedUser:[{
         type:mongoose.schema.type.objectId,
         ref:"user"
     }],
-    isFavorite:{
+    isFavourite:{
         type:Boolean,
+        default:false
+    },
+    shareable:{
+        type:Boolean,
+        require:true,
         default:false
     }
 },{
@@ -33,3 +39,5 @@ const boardSchema = new mongoose.Schema({
 })
 
 const Board = mongoose.model('Board', boardSchema)
+
+module.exports = Board

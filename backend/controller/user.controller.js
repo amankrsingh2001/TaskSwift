@@ -80,12 +80,14 @@ const signup = async(req, res) =>{
         username:body.username
       }).sort({createdAt:-1}).limit(1)
 
+
       if(recentOtp.otp !== body.otp){
             return res.status(401).json({
                 success:false,
                 message:"Otp verfication failed",
             })
       }
+
 
       const userProfile = await Profile.create({
         firstName:body.firstName,
@@ -109,11 +111,13 @@ const signup = async(req, res) =>{
       })
 
 
-      const refreshToken = jwt.sign({
+      const refreshToken = await jwt.sign({
         _id:newUser._id
       },process.env.JWT_REFRESH_SECRET,{
         expiresIn:'10d'
       })
+
+
 
       const createUser = await User.findOneAndUpdate({
         _id:newUser._id
@@ -137,7 +141,6 @@ const signup = async(req, res) =>{
               success:true,
               message:"Account created successfully",
               data:createUser,
-              token:token
           })
       }
   } catch (error) {
