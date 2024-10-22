@@ -11,7 +11,8 @@ const signupSchema = zod.object({
     password:zod.string().min(4).max(16),
     firstName:zod.string(),
     lastName:zod.string(),
-    otp:zod.number()
+    otp:zod.number(),
+    token:zod.string().optional()
 })
 
 const signInSchema = zod.object({
@@ -19,10 +20,17 @@ const signInSchema = zod.object({
     password:zod.string().min(4).max(16)
 })
 
+const boardSchema = zod.object({
+    boardName:zod.string(),
+    boardDescription:zod.string().optional(),
+    isFavorite:zod.boolean().optional(),
+    sharable:zod.boolean(),
 
+})
 
 module.exports = {
     otpSchema,
     signupSchema,
-    signInSchema
+    signInSchema,
+    boardSchema
 }
