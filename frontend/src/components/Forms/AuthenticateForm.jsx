@@ -20,7 +20,7 @@ import OTPForm from "./OTPForm.jsx";
 const AuthForm = () => {
   const [userCredentials, setuserCredentials] = useState({});
   const [hidePass, setHidePass] = useReducer((old) => !old, true);
-  const [showOtpForm, setShowOtpForm] = useReducer((old) => !old, true);
+  const [showOtpForm, setShowOtpForm] = useReducer((old) => !old, false);
   const loader = useSelector( (store) => store.userInfo.loading)
 
   const navigate = useNavigate();

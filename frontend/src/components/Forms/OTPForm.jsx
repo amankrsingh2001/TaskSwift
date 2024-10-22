@@ -12,7 +12,7 @@ function OTPForm({ length, onSubmit }) {
   const [OTP, setOTP] = useState(Array(length).fill(""));
   const inputRef = useRef(Array(length).fill(0));
   const user = JSON.parse(localStorage.getItem('user')) || null;
-  const [countDown, setCountDown] = useState(10);
+  const [countDown, setCountDown] = useState(59);
   const loader = useSelector(store => store.userInfo.loading);
 
   const intervalId = useRef(null)
