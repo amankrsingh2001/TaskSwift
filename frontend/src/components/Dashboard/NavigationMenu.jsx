@@ -301,10 +301,10 @@ const NavigationMenuList = ({ sidebarToggle, sidebarWidth, setSidebarWidth }) =>
                     )}
                     {index == navMenu.items.length - 1 && (
                       <img
-                        src={currentUser.profileUrl}
+                        src={currentUser?.userProfile?.profileImage}
                         alt={`${currentUser.fullname} goalguru user`}
                         className="h-7 w-7 rounded-full mr-2"
-                      />
+                        />
                     )}
                     {sidebarWidth && ( index == navMenu.items.length - 1 ? currentUser.username : menuLink.text)}
                     </Link>  

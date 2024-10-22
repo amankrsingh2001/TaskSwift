@@ -1,30 +1,24 @@
 import axios from "axios";
 import { API_URL } from "../utils/Constents";
+import { ApiResponseHandler } from "./useApiResponseHandler";
 
-const useVerifyCredential = async (userCredentials, navigate , dispatch) => {
-
+const useVerifyCredential = async (userCredentials) => {
   if (
-    userCredentials.email == "" ||
-    !userCredentials.email.includes("@") ||
-    !userCredentials.email.includes(".") ||
-    userCredentials.password == ""
+    !userCredentials.username ||
+    !userCredentials.username.includes("@") ||
+    !userCredentials.username.includes(".") ||
+    !userCredentials.password
   ) {
-    return { response: null, type: "error", msg: "Invalid Credential" };
+    return { success: false, type: "error", message: "Invalid Credential" };
   }
 
   try {
-    const response = await axios.post(`${API_URL}/user/signin`, userCredentials);
-    console.log(response.data,"**********")
-    if(response.data.success){
-      return { msg: response.data.msg, response, };
-    }
-
-
+    const response = await   ApiResponseHandler('post', `${API_URL}/user/signin`, userCredentials);
+   return response;
   } catch (error) {
     console.log("Error:", error);
-    const errorInfo = error?.response?.data?.msg || error.message;
-    return { type:"error", msg: errorInfo, response: error?.response };
+    return { type: "error", ...error};
   }
 };
 
-export default useVerifyCredential ;
+export default useVerifyCredential;

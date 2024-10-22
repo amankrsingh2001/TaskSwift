@@ -6,7 +6,7 @@ export const signinData = {
     formEls :[
         {   id:nanoid(),
             icon:'FaRegUser',
-            name:"email",
+            name:"username",
             type:"email",  
             lable:"Email"      
         },
@@ -45,7 +45,7 @@ export const signupData = {
         },
         {   id:nanoid(),
             icon:'HiOutlineMail',
-            name:"email",
+            name:"username",
             type:"email", 
             lable:"Email"  
         },

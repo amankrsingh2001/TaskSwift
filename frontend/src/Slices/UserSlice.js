@@ -4,7 +4,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const testUser123 = {
   username: "demoUser123",
   email: "user123@gmail.com",
-  profileUrl: "https://ui-avatars.com/api/?name=demo+user&background=random&color=fff",
   fullname:"Test User",
   projectList:[]
 }
@@ -31,9 +30,12 @@ export const UserSlice = createSlice({
     },
     setToken :(state, action) =>{
       state.token = action.payload
+    },
+    toggleLoading : (state, action) => {
+      state.loading = !state.loading;
     }
   },
 });
 
 export default UserSlice.reducer;
-export const { addCurrentUser, updateUserProfile, removeCurrentUser,setToken } = UserSlice.actions;
+export const { addCurrentUser, updateUserProfile, removeCurrentUser,setToken, toggleLoading } = UserSlice.actions;

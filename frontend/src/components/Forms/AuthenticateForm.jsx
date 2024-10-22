@@ -1,26 +1,28 @@
 import { Link, useNavigate, useOutletContext, useSearchParams } from "react-router-dom";
 import { useEffect, useReducer, useState } from "react"; //removed some waste imports
-import { useDispatch } from "react-redux";
-import { addCurrentUser } from "../../Slices/UserSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { addCurrentUser, toggleLoading } from "../../Slices/UserSlice.js";
 
 // icons
 import { HiLockClosed, HiOutlineMail } from "react-icons/hi";
 import { MdEmail, MdLockOutline } from "react-icons/md";
-import { FaRegEyeSlash } from "react-icons/fa6";
+import { FaLaravel, FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
 import { toast } from "react-toastify";
-import useRegisterUser from "../../services/useRegisterUser.js";
+import useRegisterUser, { validateUser } from "../../services/useRegisterUser.js";
 import Spinner from "../common/Spinner.jsx";
 import { signupData, signinData, forgotPasswordData, newPasswordData } from "../../mocks/Signin-Signup-Pagedata.js";
 import useVerifyCredential from "../../services/useAuthentication.js";
 import useForgotPassword from "../../services/useForgotPassword.js";
+import OTPForm from "./OTPForm.jsx";
 
 const AuthForm = () => {
   const [userCredentials, setuserCredentials] = useState({});
   const [hidePass, setHidePass] = useReducer((old) => !old, true);
-  const [loader, setloader] = useReducer((old) => !old, false);
-  
+  const [showOtpForm, setShowOtpForm] = useReducer((old) => !old, true);
+  const loader = useSelector( (store) => store.userInfo.loading)
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formType] = useOutletContext();
@@ -32,35 +34,32 @@ const AuthForm = () => {
   }
   const data =  allForms[`${formType}Data`]
 
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = async(e) => {
     e.preventDefault();
     e.target.disabled = true;
-    setloader();
+    dispatch(toggleLoading())
     // form condition
     let response = null;
-
-    console.log(formType)
+    
     if(formType.includes('signup')){
-      console.log(userCredentials);
-      response = await useRegisterUser(userCredentials);
+      response = await validateUser(userCredentials, setShowOtpForm);
     }else if(formType.includes('signin')){
       response = await useVerifyCredential( userCredentials );
     }else if(formType.includes('forgotPassword')){
       response = await useForgotPassword( userCredentials.email);
     }
-
-    response?.type && toast[response.type](response.msg);
-
-    if (response.msg === "User created" || response.msg === "Success") {
-      console.log(response.data);
-      // user must be in the response
-      const currentUser = response.response.data?.user;
+    
+    // notify
+    response?.type && toast[ response.type ](response.message);
+    
+    if (formType.includes('signup') ?  response?.success && showOtpForm : response?.success) {
+      const currentUser = response?.data;
       dispatch(addCurrentUser(currentUser));
       console.log(currentUser);
-      // navigate to username
-      navigate(`/`);
+      navigate(`/dashboard`);
     }
-    setloader();
+    
+    dispatch(toggleLoading())
     e.target.disabled = false;
   };
 
@@ -76,12 +75,14 @@ const AuthForm = () => {
     setuserCredentials(data);
   };
 
+
   // reset the filed data.
   useEffect(()=>{
     setuserCredentials({});
   }, [formType])
 
   return (
+    showOtpForm ? <OTPForm length={6} onSubmit={() => {console.log("Success")}}/> :
     <div className="max-w-[360px] py-6">
       <h2 className="font-inter text-black font-medium text-3xl">
         {data.heading}
@@ -153,6 +154,7 @@ const AuthForm = () => {
           type="submit"
           className="rounded-lg bg-blue-500 hover:bg-blue-600 transition-all text-white font-inter text-sm py-3 px-5 w-full grid place-items-center mt-4 disabled:bg-slate-500 disabled:cursor-not-allowed"
           onClick={handleFormSubmit}
+          disabled={ !((Object.values(userCredentials).length == data.formEls.length) && Object.values(userCredentials).every(val => val !== ""))}
         >
           {(loader && <Spinner />) || data.submitButtonText}
         </button>
