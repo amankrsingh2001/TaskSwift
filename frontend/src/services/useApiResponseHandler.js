@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const ApiResponseHandler = async (reqType, url, data) => {
   try {
-    const response = await axios[reqType](url, data, { withCredentials:false });
+    const response = await axios[reqType](url, data, { withCredentials:true });
     console.log(response);
 
     if (response.data.success) {

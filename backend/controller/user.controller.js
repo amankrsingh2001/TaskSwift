@@ -111,13 +111,11 @@ const signup = async(req, res) =>{
       })
 
 
-      const refreshToken = await jwt.sign({
+      const refreshToken = jwt.sign({
         _id:newUser._id
       },process.env.JWT_REFRESH_SECRET,{
         expiresIn:'10d'
       })
-
-
 
       const createUser = await User.findOneAndUpdate({
         _id:newUser._id
